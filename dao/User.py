@@ -1,3 +1,4 @@
+import copy
 from typing import List
 from dao.Department import DepartmentDAO
 from models.User import User
@@ -12,15 +13,18 @@ class UserDAO:
         users_with_department = []
         for user in self.users:
             department = self.department_dao.get_single_department(user.departmentId)
-            users_with_department.append(
-                {"id": user.id, "username": user.username, "email": user.email, "department": department})
+            user_with_department = copy.deepcopy(user)
+            user_with_department.department = department
+            users_with_department.append(user_with_department)
         return users_with_department
 
     def get_single_user(self, _id: int):
         for user in self.users:
             if user.id == _id:
                 department = self.department_dao.get_single_department(user.departmentId)
-                return {"id": user.id, "username": user.username, "email": user.email, "department": department}
+                user_with_department = copy.deepcopy(user)
+                user_with_department.department = department
+                return user_with_department
 
         raise Exception(f"User with id of {_id} does not exist")
 
