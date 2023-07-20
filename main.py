@@ -73,7 +73,7 @@ The user has been added successfully. Here is the details of the user.
 {user_details}
                 ''')
             except Exception as e:
-                pass
+                print(e)
         elif command == 2:
             users = user_dao.get_all_users()
             print(f'''
@@ -96,7 +96,7 @@ Here is the details of the user.
 {user}
  ''')
             except Exception as e:
-                pass
+                print(e)
         elif command == 4:
             print('''
 You pressed '4'. Inorder to update a employee name, you need to supply the following.
@@ -110,7 +110,7 @@ You pressed '4'. Inorder to update a employee name, you need to supply the follo
                 user = user_dao.update_user(int(user_id), new_name)
                 print(f'''User's name has been successfully updated.''')
             except Exception as e:
-                pass
+                print(e)
         elif command == 5:
             print('''
 You pressed '5'. Inorder to update a employee's department, you need to supply the following.
@@ -123,7 +123,7 @@ You pressed '5'. Inorder to update a employee's department, you need to supply t
                 user = user_dao.change_department(int(user_id), int(department_id))
                 print(f'''User's department has been successfully updated.''')
             except Exception as e:
-                pass
+                print(e)
         else:
             print('''
 You pressed '6'. Inorder to delete a employee, you need to supply the following.
@@ -135,7 +135,7 @@ You pressed '6'. Inorder to delete a employee, you need to supply the following.
                 user = user_dao.remove_user(int(user_id))
                 print(f'''User has been successfully deleted.''')
             except Exception as e:
-                pass
+                print(e)
     else:
         print('''
 You pressed 2. Now, you can perform operations on Department. Here are all the operations available.
@@ -152,7 +152,8 @@ Please press key associated with the command. Example: Press 1 for creating a ne
         command = input("Your Input: ")
 
         if command not in ["1", "2", "3", "4", "5", "6"]:
-            print(f"You entered '{command}'. This is a Invalid Value. Please enter a valid input")
+            print(f"\nYou entered '{command}'. This is a Invalid Value. Please enter a valid input")
+            continue
 
         command = int(command)
 
@@ -197,7 +198,7 @@ Here is the details of the department.
 {department}
  ''')
             except Exception as e:
-                pass
+                print(e)
         elif command == 4:
             print('''
 You pressed '4'. Inorder to update a department name, you need to supply the following.
@@ -211,7 +212,7 @@ You pressed '4'. Inorder to update a department name, you need to supply the fol
                 user = department_dao.update_department(int(department_id), new_name)
                 print(f'''Department's name has been successfully updated.''')
             except Exception as e:
-                pass
+                print(e)
         else:
             print('''
 You pressed '5'. Inorder to delete a department, you need to supply the following.
@@ -220,10 +221,10 @@ You pressed '5'. Inorder to delete a department, you need to supply the followin
 ''')
             department_id = input("Enter department Id: ")
             try:
-                department = user_dao.remove_user(int(department_id))
-                print(f'''Department has been successfully deleted.''')
+                department = department_dao.remove_department(int(department_id))
+                print(f'''\nDepartment has been successfully deleted.''')
             except Exception as e:
-                pass
+                print(e)
 
     print('''
 DO you want to continue working on the system. 
