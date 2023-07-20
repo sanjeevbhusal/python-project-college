@@ -9,12 +9,18 @@ class UserDAO:
         self.department_dao = department_dao
 
     def get_all_users(self):
-        return self.users
+        users_with_department = []
+        for user in self.users:
+            department = self.department_dao.get_single_department(user.departmentId)
+            users_with_department.append(
+                {"id": user.id, "username": user.username, "email": user.email, "department": department})
+        return users_with_department
 
     def get_single_user(self, _id: int):
         for user in self.users:
             if user.id == _id:
-                return user
+                department = self.department_dao.get_single_department(user.departmentId)
+                return {"id": user.id, "username": user.username, "email": user.email, "department": department}
 
         raise Exception(f"User with id of {_id} does not exist")
 
